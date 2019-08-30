@@ -11,5 +11,20 @@
 // about supported directives.
 //
 //= require rails-ujs
-//= require turbolinks
+//= require jquery
+//= require jquery_ujs
+//= require angularjs/angular
+//= require angularjs/angular-route
+//= require angularjs/angular-animate
+//= require angularjs/angular-aria
+//= require angularjs/angular-sanitize
+//= require angularjs/angular-messages
+//= require angularjs/angular-translate
+//= require angularjs/angular-translate-storage-cookie
+//= require angularjs/angular-translate-storage-local
+//= require angularjs/angular-translate-loader-static-files
+//= require angularjs/angular-translate-handler-log
+//= require angular-material/angular-material
+//= require Chart/Chart
+//
 //= require_tree .
