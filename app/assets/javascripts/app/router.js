@@ -3,4 +3,9 @@ angular.module('FirstApp').config([
   , function(
     $routeProvider
   ) {
+    $routeProvider
+    .when('/bankrupts', {
+      templateUrl: '/templates/bunkrupts/index',
+      controller: 'BunkruptsIndexController'
+    });
   }]);
