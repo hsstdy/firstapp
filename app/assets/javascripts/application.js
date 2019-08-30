@@ -26,5 +26,6 @@
 //= require angularjs/angular-translate-handler-log
 //= require angular-material/angular-material
 //= require Chart/Chart
+//= require app
 //
 //= require_tree .
