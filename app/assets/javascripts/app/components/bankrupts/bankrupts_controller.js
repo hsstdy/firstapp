@@ -1,8 +1,10 @@
 angular.module('FirstApp')
   .controller('BunkruptsIndexController', [
     '$scope'
+    , 'RequestResourceService'
     , function(
       $scope
+      , RequestResourceService
     ) {
       var SIMULATE_TERM = 100;
       $scope.load = function() {
@@ -52,6 +54,7 @@ angular.module('FirstApp')
           }
         }
         $scope.result = bankruptCount;
+        RequestResourceService.create('bankrupts/index');
       }
       /**
        *
