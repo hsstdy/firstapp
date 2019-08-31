@@ -1,35 +1,55 @@
-<div layout="column">
+<form name="inputForm" layout="column">
   <div>
     <md-input-container>
       <label>勝率</label>
-      <input ng-model="winRate">
+      <input name="winRate" type="number" ng-model="winRate" min="0" max="100" required placeholder="勝率">
+      <div ng-messages="inputForm.winRate.$error">
+        <div ng-message="required">必須入力です。</div>
+        <div ng-message="min">0-100の範囲で入力してください。</div>
+        <div ng-message="max">0-100の範囲で入力してください。</div>
+      </div>
     </md-input-container>
   </div>
 
   <div>
     <md-input-container>
       <label>平均利益率</label>
-      <input ng-model="averageGain">
+      <input name="averageGain" type="number" ng-model="averageGain" min="0" max="100" required placeholder="平均利益率">
+      <div ng-messages="inputForm.averageGain.$error">
+        <div ng-message="required">必須入力です。</div>
+        <div ng-message="min">0-100の範囲で入力してください。</div>
+        <div ng-message="max">0-100の範囲で入力してください。</div>
+      </div>
     </md-input-container>
   </div>
 
   <div>
     <md-input-container>
       <label>平均損失率</label>
-      <input ng-model="averageLoss">
+      <input name="averageLoss" type="number" ng-model="averageLoss" min="0" max="100" required placeholder="平均損失率">
+      <div ng-messages="inputForm.averageLoss.$error">
+        <div ng-message="required">必須入力です。</div>
+        <div ng-message="min">0-100の範囲で入力してください。</div>
+        <div ng-message="max">0-100の範囲で入力してください。</div>
+      </div>
     </md-input-container>
   </div>
 
   <div>
     <md-input-container>
       <label>破産資産水準</label>
-      <input ng-model="bankruptsAt">
+      <input name="bankruptsAt" type="number" ng-model="bankruptsAt" min="0" max="100" required placeholder="破産資産水準">
+      <div ng-messages="inputForm.bankruptsAt.$error">
+        <div ng-message="required">必須入力です。</div>
+        <div ng-message="min">0-100の範囲で入力してください。</div>
+        <div ng-message="max">0-100の範囲で入力してください。</div>
+      </div>
     </md-input-container>
   </div>
 
   <div>
-    <md-button class="md-raised md-primary" ng-click="clickRun()">
+    <md-button class="md-raised md-primary" ng-disabled="inputForm.$invalid" ng-click="clickRun()">
       実行
     </md-button>
   </div>
-</div>
+</form>
