@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  requested: 2019-08-31 10:13:41
+  page: MyString
+
+two:
+  requested: 2019-08-31 10:13:41
+  page: MyString
