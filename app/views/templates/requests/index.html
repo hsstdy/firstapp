@@ -1,1 +1,19 @@
-hello
+<div layout="column">
+  <div layout="row" layout-align="start">
+    <md-input-container>
+      <label>開始日付</label>
+      <md-datepicker ng-model="fromDate"></md-datepicker>
+    </md-input-container>
+
+    <md-input-container>
+      <label>終了日付</label>
+      <md-datepicker ng-model="toDate"></md-datepicker>
+    </md-input-container>
+
+    <div style="margin-top: 10px">
+      <md-button class="md-raised md-primary" ng-click="clickDraw()">表示</md-button>
+    </div>
+
+  </div>
+  <div id="chart-container" flex></div>
+</div>

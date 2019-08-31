@@ -8,5 +8,9 @@ angular.module('FirstApp').config([
       templateUrl: '/templates/bankrupts/index',
       controller: 'BunkruptsIndexController'
     })
+    .when('/tools/requests', {
+      templateUrl: '/templates/requests/index',
+      controller: 'RequestIndexToolController'
+    })
     .otherwise('/bankrupts');
   }]);
