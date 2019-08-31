@@ -1,59 +1,65 @@
-<form name="inputForm" layout="column" ng-init="load()">
-  <div>
-    <md-input-container>
-      <label>勝率</label>
-      <input name="winRate" type="number" ng-model="winRate" min="0" max="100" required placeholder="勝率">
-      <div ng-messages="inputForm.winRate.$error">
-        <div ng-message="required">必須入力です。</div>
-        <div ng-message="min">0-100の範囲で入力してください。</div>
-        <div ng-message="max">0-100の範囲で入力してください。</div>
-      </div>
-    </md-input-container>
+<form name="inputForm" layout="column" ng-init="load()" style="height: 100%;">
+  <div layout-gt-sm="row">
+    <div>
+      <md-input-container>
+        <label>勝率</label>
+        <input name="winRate" type="number" ng-model="winRate" min="0" max="100" required placeholder="勝率">
+        <div ng-messages="inputForm.winRate.$error">
+          <div ng-message="required">必須入力です。</div>
+          <div ng-message="min">0-100の範囲で入力してください。</div>
+          <div ng-message="max">0-100の範囲で入力してください。</div>
+        </div>
+      </md-input-container>
+    </div>
+
+    <div>
+      <md-input-container>
+        <label>平均利益率</label>
+        <input name="averageGain" type="number" ng-model="averageGain" min="0" max="100" required placeholder="平均利益率">
+        <div ng-messages="inputForm.averageGain.$error">
+          <div ng-message="required">必須入力です。</div>
+          <div ng-message="min">0-100の範囲で入力してください。</div>
+          <div ng-message="max">0-100の範囲で入力してください。</div>
+        </div>
+      </md-input-container>
+    </div>
+
+    <div>
+      <md-input-container>
+        <label>平均損失率</label>
+        <input name="averageLoss" type="number" ng-model="averageLoss" min="0" max="100" required placeholder="平均損失率">
+        <div ng-messages="inputForm.averageLoss.$error">
+          <div ng-message="required">必須入力です。</div>
+          <div ng-message="min">0-100の範囲で入力してください。</div>
+          <div ng-message="max">0-100の範囲で入力してください。</div>
+        </div>
+      </md-input-container>
+    </div>
+
+    <div>
+      <md-input-container>
+        <label>破産資産水準</label>
+        <input name="bankruptsAt" type="number" ng-model="bankruptsAt" min="0" max="100" required placeholder="破産資産水準">
+        <div ng-messages="inputForm.bankruptsAt.$error">
+          <div ng-message="required">必須入力です。</div>
+          <div ng-message="min">0-100の範囲で入力してください。</div>
+          <div ng-message="max">0-100の範囲で入力してください。</div>
+        </div>
+      </md-input-container>
+    </div>
+
+  </div>
+  <div layout-gt-sm="row" layout-align="start center">
+    <div>
+      <md-button class="md-raised md-primary" ng-disabled="inputForm.$invalid" ng-click="clickRun()">
+        実行
+      </md-button>
+    </div>
+
+    <div>
+      100回のシミュレーションを行った結果、{{result}}回、破産資産水準を下回りました。
+    </div>
   </div>
 
-  <div>
-    <md-input-container>
-      <label>平均利益率</label>
-      <input name="averageGain" type="number" ng-model="averageGain" min="0" max="100" required placeholder="平均利益率">
-      <div ng-messages="inputForm.averageGain.$error">
-        <div ng-message="required">必須入力です。</div>
-        <div ng-message="min">0-100の範囲で入力してください。</div>
-        <div ng-message="max">0-100の範囲で入力してください。</div>
-      </div>
-    </md-input-container>
-  </div>
-
-  <div>
-    <md-input-container>
-      <label>平均損失率</label>
-      <input name="averageLoss" type="number" ng-model="averageLoss" min="0" max="100" required placeholder="平均損失率">
-      <div ng-messages="inputForm.averageLoss.$error">
-        <div ng-message="required">必須入力です。</div>
-        <div ng-message="min">0-100の範囲で入力してください。</div>
-        <div ng-message="max">0-100の範囲で入力してください。</div>
-      </div>
-    </md-input-container>
-  </div>
-
-  <div>
-    <md-input-container>
-      <label>破産資産水準</label>
-      <input name="bankruptsAt" type="number" ng-model="bankruptsAt" min="0" max="100" required placeholder="破産資産水準">
-      <div ng-messages="inputForm.bankruptsAt.$error">
-        <div ng-message="required">必須入力です。</div>
-        <div ng-message="min">0-100の範囲で入力してください。</div>
-        <div ng-message="max">0-100の範囲で入力してください。</div>
-      </div>
-    </md-input-container>
-  </div>
-
-  <div>
-    <md-button class="md-raised md-primary" ng-disabled="inputForm.$invalid" ng-click="clickRun()">
-      実行
-    </md-button>
-  </div>
-
-  <div style="width: 400px;">
-    <canvas id="myChart" width="400" height="400"></canvas>
-  </div>
+  <div id="myChart" flex></div>
 </form>

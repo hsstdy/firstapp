@@ -4,50 +4,132 @@ angular.module('FirstApp')
     , function(
       $scope
     ) {
+      var SIMULATE_TERM = 100;
       $scope.load = function() {
         $scope.winRate = 50;
         $scope.averageGain = 5;
         $scope.averageLoss = 3;
         $scope.bankruptsAt = 10;
-
       }
       $scope.clickRun = function() {
         console.log($scope.winRate)
         console.log($scope.averageGain)
         console.log($scope.averageLoss)
         console.log($scope.bankruptsAt)
-        var ctx = document.getElementById("myChart").getContext('2d');
+        $scope.result = "";
+        var samples = [];
+        for (let i=0;i<100;i++) {
+          samples.push(simulate());
+        }
+        var aves = [];
+        var band_tops = [];
+        var band_bottoms = [];
+        for (let i=0;i<SIMULATE_TERM;i++) {
+          var sum = 0;
+          for (let j=0;j<100;j++) {
+            sum += samples[j][i];
+          }
+          var ave = sum / 100;
+          var dev = 0;
+          for (let j=0;j<100;j++) {
+            let diff = samples[j][i] - ave;
+            dev += diff * diff;
+          }
+          dev = Math.sqrt(dev / 100);
+          aves.push(ave);
+          band_tops.push(ave + dev);
+          band_bottoms.push(ave - dev);
+        }
+        drawChart(getLabel(), aves, band_tops, band_bottoms);
+        // calc Bankrupt
+        var bankruptCount = 0;
+        for (let j=0; j<100; j++) {
+          var bankrupt = samples[j].find(function(sample) {
+            return sample <= $scope.bankruptsAt;
+          });
+          if (bankrupt) {
+            bankruptCount += 1;
+          }
+        }
+        $scope.result = bankruptCount;
+      }
+      /**
+       *
+       */
+      var simulate = function() {
+        var assets = 100;
+        var growth = $scope.averageGain / 100 + 1;
+        var decline = - $scope.averageLoss / 100 + 1;
+        var data = [assets];
+        var t = 1 - $scope.winRate / 100;
+        for (let i=1; i < SIMULATE_TERM; i++) {
+          var r = Math.random()
+          if (r > t) {
+            assets *= growth;
+          } else if (r < t) {
+            assets *= decline;
+          }
+          data[i] = assets;
+        }
+        return data;
+      }
+      /**
+       *
+       */
+      var getLabel = function() {
+        var interval = SIMULATE_TERM / 10;
+        var result = Array(SIMULATE_TERM);
+        result.fill("");
+        for (let i=1;i <= 10; i++) {
+          result[i * interval - 1] = ( i * interval ).toString();
+        }
+        return result;
+      }
+      /**
+       *
+       */
+      var drawChart = function(label, data, band_tops, band_bottoms) {
+        $('#chart').remove();
+        $('#myChart').append("<canvas id='chart'></canvas>");
+        var ctx = document.getElementById('chart').getContext('2d');
         var myChart = new Chart(ctx, {
-          type: 'bar',
+          type: 'line',
           data: {
-            labels: ["赤", "青", "黄色", "緑", "紫", "橙"],
-            datasets: [{
-              label: '得票数',
-              data: [12, 19, 3, 5, 2, 3],
-              backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-              ],
-              borderColor: [
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-              ],
-              borderWidth: 1
-            }]
+            labels: label,
+            datasets: [
+              {
+                label: '資産(平均)',
+                data: data,
+                borderColor: 'rgba(40, 71, 153, 0.8)',
+                backgroundColor: 'rgba(40, 71, 153, 0.1)',
+                fill: false,
+                pointRadius: 0
+              },
+              {
+                label: '+1σ',
+                data: band_tops,
+                borderColor: 'rgba(40, 71, 153, 0.4)',
+                backgroundColor: 'rgba(40, 71, 153, 0.1)',
+                fill: false,
+                pointRadius: 0
+              },
+              {
+                label: '-1σ',
+                data: band_bottoms,
+                borderColor: 'rgba(40, 71, 153, 0.4)',
+                backgroundColor: 'rgba(40, 71, 153, 0.1)',
+                fill: false,
+                pointRadius: 0
+              }
+            ]
           },
           options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            aspectRatio: 1,
             scales: {
               yAxes: [{
                 ticks: {
-                  beginAtZero:true
                 }
               }]
             }
