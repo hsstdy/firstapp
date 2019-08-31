@@ -1,1 +1,35 @@
-hello
+<div layout="column">
+  <div>
+    <md-input-container>
+      <label>勝率</label>
+      <input ng-model="winRate">
+    </md-input-container>
+  </div>
+
+  <div>
+    <md-input-container>
+      <label>平均利益率</label>
+      <input ng-model="averageGain">
+    </md-input-container>
+  </div>
+
+  <div>
+    <md-input-container>
+      <label>平均損失率</label>
+      <input ng-model="averageLoss">
+    </md-input-container>
+  </div>
+
+  <div>
+    <md-input-container>
+      <label>破産資産水準</label>
+      <input ng-model="bankruptsAt">
+    </md-input-container>
+  </div>
+
+  <div>
+    <md-button class="md-raised md-primary" ng-click="clickRun()">
+      実行
+    </md-button>
+  </div>
+</div>

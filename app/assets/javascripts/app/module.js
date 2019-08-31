@@ -1,3 +1,7 @@
 angular.module('FirstApp', [
-   'ngRoute'
+  'ngRoute'
+  ,'ngMessages'
+  ,'ngSanitize'
+  ,'ngMaterial'
 ]);
+

@@ -5,7 +5,8 @@ angular.module('FirstApp').config([
   ) {
     $routeProvider
     .when('/bankrupts', {
-      templateUrl: '/templates/bunkrupts/index',
+      templateUrl: '/templates/bankrupts/index',
       controller: 'BunkruptsIndexController'
-    });
+    })
+    .otherwise('/bankrupts');
   }]);
