@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get 'templates/:path' , to: 'templates#page', constraints: {path: /.+/}
+  get 'requests/count_by_date'
   post 'requests/create'
 
   root to: 'home#index'

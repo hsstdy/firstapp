@@ -6,6 +6,21 @@ angular.module('FirstApp')
       $http
       , $filter
     ) {
+      this.count_by_date = function(params, func) {
+        $http({
+          methods: 'GET',
+          url: 'requests/count_by_date',
+          params: params
+        }).then(
+          function(success) {
+            this.data = success.data;
+            func.call(this);
+          },
+          function(error) {
+          }
+        )
+
+      }
       this.create = function(page) {
         var data = {
           request: {
